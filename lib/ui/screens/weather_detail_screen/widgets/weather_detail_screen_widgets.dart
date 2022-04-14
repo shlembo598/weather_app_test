@@ -1,3 +1,4 @@
+export 'detail_screen_error_widget.dart';
 export 'horizontal_orientation_details_widget.dart';
 export 'portrait_orientation_details_widget.dart';
 export 'temperature_widget.dart';

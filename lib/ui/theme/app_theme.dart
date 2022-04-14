@@ -1,8 +1,5 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class AppTheme {
-  static BoxDecoration listItemsDecoration = BoxDecoration(
-    color: const Color(0xFDFCFCFF),
-    borderRadius: BorderRadius.circular(11),
-  );
+  static const listTileColor = Color(0xFDFCFCFF);
 }
