@@ -23,6 +23,8 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "app_title": MessageLookupByLibrary.simpleMessage("Weather App"),
+        "getWeather_error_message":
+            MessageLookupByLibrary.simpleMessage("No internet connection!"),
         "internet_connected": MessageLookupByLibrary.simpleMessage(
             "Internet connection is available."),
         "internet_disconnected": MessageLookupByLibrary.simpleMessage(

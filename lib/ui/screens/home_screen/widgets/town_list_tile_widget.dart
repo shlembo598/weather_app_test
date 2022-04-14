@@ -3,6 +3,8 @@ import 'package:eight_app_weather_test/data/entities/town.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../data/utils/utils.dart';
+import '../../../../generated/l10n.dart';
 import '../../../navigation/main_navigation.dart';
 import '../../../theme/app_theme.dart';
 import '../../../theme/text_style.dart';
@@ -30,7 +32,10 @@ class TownListTileWidget extends StatelessWidget {
         child: GestureDetector(
           onTap: () {
             internetConnectionState.maybeWhen(
-              orElse: () => null,
+              orElse: () => Utils.showErrorSnackBar(
+                context,
+                S.of(context).getWeather_error_message,
+              ),
               connected: (status) => Navigator.pushNamed(
                 context,
                 MainNavigationRouteNames.weatherDetailScreen,
