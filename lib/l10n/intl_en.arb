@@ -1,3 +1,6 @@
 {
-  "app_title" : "Weather App"
+  "app_title" : "Weather App",
+  "internet_connected" : "Internet connection is available.",
+  "internet_disconnected" : "You are disconnected from the internet.",
+  "weatherScreen_error_message" : "Oops something went wrong!"
 }

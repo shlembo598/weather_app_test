@@ -1,0 +1,6 @@
+{
+  "app_title" : "Погода",
+  "internet_connected" : "Доступно интернет соединение.",
+  "internet_disconnected" : "Вы отключены от Интернета.",
+  "weatherScreen_error_message" : "Что-то пошло не так!"
+}

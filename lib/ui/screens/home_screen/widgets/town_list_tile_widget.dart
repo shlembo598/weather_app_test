@@ -1,5 +1,7 @@
+import 'package:eight_app_weather_test/data/blocs/internet_connection_bloc/internet_connection_bloc.dart';
 import 'package:eight_app_weather_test/data/entities/town.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../navigation/main_navigation.dart';
 import '../../../theme/app_theme.dart';
@@ -16,6 +18,9 @@ class TownListTileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final internetConnectionState =
+        context.watch<InternetConnectionBloc>().state;
+
     return Padding(
       padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
       child: Container(
@@ -23,11 +28,16 @@ class TownListTileWidget extends StatelessWidget {
         height: 59,
         decoration: AppTheme.listItemsDecoration,
         child: GestureDetector(
-          onTap: () => Navigator.pushNamed(
-            context,
-            MainNavigationRouteNames.weatherDetailScreen,
-            arguments: Town(name: townName, searchValue: searchValue),
-          ),
+          onTap: () {
+            internetConnectionState.maybeWhen(
+              orElse: () => null,
+              connected: (status) => Navigator.pushNamed(
+                context,
+                MainNavigationRouteNames.weatherDetailScreen,
+                arguments: Town(name: townName, searchValue: searchValue),
+              ),
+            );
+          },
           child: ListTile(
             title: Text(
               townName,

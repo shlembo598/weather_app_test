@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:eight_app_weather_test/data/repositories/weather_repository.dart';
 import 'package:eight_app_weather_test/resources/app_images.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -33,10 +34,9 @@ class WeatherDetailState with _$WeatherDetailState {
 }
 
 class WeatherDetailBloc extends Bloc<WeatherDetailEvent, WeatherDetailState> {
-  final WeatherRepository weatherRepository;
+  final Dio dio = Dio();
 
-  WeatherDetailBloc({required this.weatherRepository})
-      : super(const _InitialWeatherDetailState()) {
+  WeatherDetailBloc() : super(const _InitialWeatherDetailState()) {
     on<WeatherDetailEvent>(
       (event, emitter) => event.map<Future<void>>(
         load: (event) => _load(event, emitter),
@@ -50,8 +50,10 @@ class WeatherDetailBloc extends Bloc<WeatherDetailEvent, WeatherDetailState> {
   ) async {
     final searchValue = event.searchValue;
     final townName = event.townName;
+    final repository = WeatherRepository(dio);
     try {
-      await weatherRepository.getCurrentWeather(searchValue!).then((weather) {
+      emitter(const WeatherDetailState.loading());
+      await repository.getCurrentWeather(searchValue!).then((weather) {
         final sky = weather.weather?.first.main.toString();
         final temp = weather.main?.temp?.ceil();
         final weatherIcon = _getWeatherIcon(sky!);

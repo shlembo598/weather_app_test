@@ -20,7 +20,7 @@ class WeatherApp extends StatelessWidget {
         minWidth: 375,
         defaultScale: true,
         breakpoints: [
-          const ResponsiveBreakpoint.resize(400, name: MOBILE),
+          const ResponsiveBreakpoint.resize(375, name: MOBILE),
           const ResponsiveBreakpoint.autoScale(800, name: TABLET),
           const ResponsiveBreakpoint.resize(1000, name: DESKTOP),
         ],

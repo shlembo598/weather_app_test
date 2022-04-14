@@ -59,6 +59,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Internet connection is available.`
+  String get internet_connected {
+    return Intl.message(
+      'Internet connection is available.',
+      name: 'internet_connected',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You are disconnected from the internet.`
+  String get internet_disconnected {
+    return Intl.message(
+      'You are disconnected from the internet.',
+      name: 'internet_disconnected',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Oops something went wrong!`
+  String get weatherScreen_error_message {
+    return Intl.message(
+      'Oops something went wrong!',
+      name: 'weatherScreen_error_message',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
@@ -67,6 +97,7 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
   List<Locale> get supportedLocales {
     return const <Locale>[
       Locale.fromSubtags(languageCode: 'en'),
+      Locale.fromSubtags(languageCode: 'ru'),
     ];
   }
 
