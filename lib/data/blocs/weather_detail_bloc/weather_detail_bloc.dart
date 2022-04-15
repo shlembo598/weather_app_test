@@ -5,7 +5,6 @@ import 'package:dio/dio.dart';
 import 'package:eight_app_weather_test/data/repositories/weather_repository.dart';
 import 'package:eight_app_weather_test/resources/app_images.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:l/l.dart';
 
 part 'weather_detail_bloc.freezed.dart';
 
@@ -55,12 +54,11 @@ class WeatherDetailBloc extends Bloc<WeatherDetailEvent, WeatherDetailState> {
     final townName = event.townName;
     final repository = WeatherRepository(dio);
     try {
-      l.i(townName!);
       emitter(const WeatherDetailState.loading());
       await repository.getCurrentWeather(searchValue!).then((weather) {
         // final sky = weather.weather?.first.main.toString();
         final temp = weather.main?.temp?.ceil();
-        final weatherIcon = _getWeatherIcon(townName);
+        final weatherIcon = _getWeatherIcon(townName!);
         emitter(
           WeatherDetailState.loaded(
             townName: townName,

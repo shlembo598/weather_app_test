@@ -1,9 +1,9 @@
+import 'package:eight_app_weather_test/ui/theme/app_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
 import 'package:responsive_framework/utils/scroll_behavior.dart';
 
-import '../generated/l10n.dart';
+import '../configuration/app_configuration.dart';
 import 'navigation/main_navigation.dart';
 
 class WeatherApp extends StatelessWidget {
@@ -19,23 +19,11 @@ class WeatherApp extends StatelessWidget {
         maxWidth: 1200,
         minWidth: 375,
         defaultScale: true,
-        breakpoints: [
-          const ResponsiveBreakpoint.resize(375, name: MOBILE),
-          const ResponsiveBreakpoint.autoScale(800, name: TABLET),
-          const ResponsiveBreakpoint.resize(1000, name: DESKTOP),
-        ],
-        background: Container(color: const Color(0xFFFFFFFF)),
+        breakpoints: AppConfiguration.screenBreakpoints,
+        background: Container(color: AppTheme.backgroundColor),
       ),
-      localizationsDelegates: const [
-        S.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: const [
-        Locale('en', ''),
-        Locale('ru', ''),
-      ],
+      localizationsDelegates: AppConfiguration.localizationsDelegates,
+      supportedLocales: AppConfiguration.supportedLocales,
       debugShowCheckedModeBanner: false,
       initialRoute: MainNavigationRouteNames.homeScreen,
       routes: mainNavigation.routes,
