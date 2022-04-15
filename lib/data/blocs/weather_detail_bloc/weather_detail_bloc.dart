@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:eight_app_weather_test/data/repositories/weather_repository.dart';
 import 'package:eight_app_weather_test/resources/app_images.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:l/l.dart';
 
 part 'weather_detail_bloc.freezed.dart';
 
@@ -12,8 +13,10 @@ part 'weather_detail_bloc.freezed.dart';
 class WeatherDetailEvent with _$WeatherDetailEvent {
   const WeatherDetailEvent._();
 
-  const factory WeatherDetailEvent.load(
-      {String? townName, String? searchValue}) = _LoadWeatherDetailEvent;
+  const factory WeatherDetailEvent.load({
+    String? townName,
+    String? searchValue,
+  }) = _LoadWeatherDetailEvent;
 }
 
 @freezed
@@ -52,11 +55,12 @@ class WeatherDetailBloc extends Bloc<WeatherDetailEvent, WeatherDetailState> {
     final townName = event.townName;
     final repository = WeatherRepository(dio);
     try {
+      l.i(townName!);
       emitter(const WeatherDetailState.loading());
       await repository.getCurrentWeather(searchValue!).then((weather) {
-        final sky = weather.weather?.first.main.toString();
+        // final sky = weather.weather?.first.main.toString();
         final temp = weather.main?.temp?.ceil();
-        final weatherIcon = _getWeatherIcon(sky!);
+        final weatherIcon = _getWeatherIcon(townName);
         emitter(
           WeatherDetailState.loaded(
             townName: townName,
@@ -73,16 +77,32 @@ class WeatherDetailBloc extends Bloc<WeatherDetailEvent, WeatherDetailState> {
     }
   }
 
-  String _getWeatherIcon(String sky) {
-    String image = '';
-    if (sky.toLowerCase().contains('cloud')) {
-      image = AppImages.clouds;
-    } else if (sky.toLowerCase().contains('rain')) {
-      image = AppImages.rain;
-    } else {
-      image = AppImages.sun;
+  //Здесь просто берем и подставлем киртинку погоды в соотвествии с макетами
+  String _getWeatherIcon(String townName) {
+    switch (townName) {
+      case 'Краснодар':
+        return AppImages.sun;
+      case 'Москва':
+        return AppImages.clouds;
+      case 'Санкт-Петербург':
+        return AppImages.rain;
+      default:
+        return AppImages.sun;
     }
-
-    return image;
   }
+
+//Здесь проверяем данные пришедшие в json и на онове них подставляем картинку
+
+// String _getWeatherIcon(String sky) {
+//   String image = '';
+//   if (sky.toLowerCase().contains('cloud')) {
+//     image = AppImages.clouds;
+//   } else if (sky.toLowerCase().contains('rain')) {
+//     image = AppImages.rain;
+//   } else {
+//     image = AppImages.sun;
+//   }
+//
+//   return image;
+// }
 }

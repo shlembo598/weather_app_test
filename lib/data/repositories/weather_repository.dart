@@ -14,9 +14,10 @@ abstract class WeatherRepository {
   static const String host = AppConfiguration.host;
   static const String suffix = AppConfiguration.hostSuffix;
   static const String apiKey = AppConfiguration.apiKey;
+  static const String units = AppConfiguration.units;
 
   @GET(
-    "$host$prefix{townName}$suffix$apiKey&units=metric",
+    "$host$prefix{townName}$suffix$apiKey$units",
   )
   Future<CurrentWeather> getCurrentWeather(@Path("townName") String townName);
 }

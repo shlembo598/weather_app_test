@@ -3,5 +3,5 @@
   "internet_connected" : "Доступно интернет соединение.",
   "internet_disconnected" : "Вы отключены от Интернета.",
   "weatherScreen_error_message" : "Что-то пошло не так!",
-  "getWeather_error_message" : "Отсутствует интернет подключение!"
+  "getWeather_error_message" : "Отсутствует интернет соединение!"
 }
